@@ -29,17 +29,19 @@ h2 {
     font-family: 'Pacifico', cursive;
 }
 
-h1 a{
+h1 a {
     color: var(--off-white);
     text-decoration: none;
 }
 
 h2 {
     font-size: 3.125rem;
+    margin-bottom: 1.5rem;
 }
 
 p {
     margin-bottom: 1.5rem;
+    max-width: 70ch;
 }
 
 /* + + + header + + + */
@@ -65,7 +67,20 @@ header {
 }
 
 header nav {
-    flex: 1 0 100%;
+    /* flex: 1 0 100%; no longer a flex item when we make it absolute because it's no longer in the flexbox*/
+    position: absolute;
+    background-color: var(--navy);
+    left: 0;
+    top: 80px;
+    width: 100vw;
+    padding: 0 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.7s ease-in-out;
+}
+
+.show-nav {
+    max-height: 28rem;
 }
 
 ul.menu {
@@ -73,15 +88,21 @@ ul.menu {
     margin-bottom: 1.5rem;
 }
 
+ul.menu svg {
+    display: none;
+}
+
 ul.menu li {
-    line-height: 2.187rem;;
+    line-height: 2.187rem;
+    ;
     margin: 0.5rem 0;
 }
 
 ul.menu a {
     font-size: 1.3rem;
-    color:var(--off-white);
+    color: var(--off-white);
     text-decoration: none;
+    display: block;
 }
 
 ul.menu a:hover {
@@ -105,8 +126,8 @@ ul.utility-nav {
 
 ul.utility-nav a {
     text-transform: uppercase;
-    background: rgb(255,110,62);
-    background: linear-gradient(0deg, rgba(255,110,62,1) 20%, rgba(210,78,37,1) 100%);
+    background: rgb(255, 110, 62);
+    background: linear-gradient(0deg, rgba(255, 110, 62, 1) 20%, rgba(210, 78, 37, 1) 100%);
     padding: 0.5rem 1rem;
     border-radius: 2rem;
     color: var(--off-white);
@@ -117,4 +138,86 @@ ul.utility-nav a {
 /* + + + main + + + */
 section {
     padding: 3.125rem 0;
+}
+
+@media screen and (min-width: 900px) {
+    .toggle-btn {
+        display: none;
+    }
+
+    header nav {
+        max-height: 28rem;
+        position: static;
+        overflow: visible;
+        padding: 0;
+        width: auto;
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+    }
+
+    ul.menu {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        border: none;
+        margin-bottom: 0;
+    }
+
+    ul.menu li {
+        position: relative;
+    }
+
+    ul.utility-nav {
+        margin-bottom: 0;
+    }
+
+    ul.submenu {
+        position: absolute;
+        top: 38px;
+        left: 0;
+        background-color: var(--navy);
+        white-space: nowrap;
+        width: 100%;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.5s ease;
+        text-align: right;
+        padding: 0 1rem;
+    }
+
+    ul.menu li:hover>ul.submenu {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    ul.menu li:focus-within>ul,
+    ul.menu li>ul:focus {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    ul.menu svg {
+        display: inline-block;
+        width: 16px;
+        fill: var(--off-white);
+    }
+
+}
+
+@media screen and (min-width: 980px) {
+    .gallery-imgs {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .gallery-imgs img {
+        width: 50%;
+    }
+
+    .gallery-imgs img:last-of-type {
+        position: relative;
+        top: 100px;
+        right: 150px;
+    }
 }
